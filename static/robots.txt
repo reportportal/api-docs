@@ -1,2 +1,5 @@
 User-agent: *
-Allow: /
+Disallow: /api-docs/*
+Disallow: /docs/category/api/*
+Allow: /api-docs/intro
+Sitemap: add sitemap
