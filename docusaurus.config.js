@@ -213,16 +213,7 @@ const config = {
           'jsx',
         ],
       },
-      algolia: {
-        appId: 'CRZVCU6DFV', // Update
-        apiKey: 'd8b54d5902dab4d50e4fba6321fb01a7',// Update
-        indexName: 'reportportal',
-        replaceSearchResultPathname: {
-          from: '/api-docs/',
-          to: baseUrl, // To suggest URLs correctly for local and dev deployment
-        },
-        searchPagePath: 'search',
-      },
+      search: false,
     }),
 
   themes: ['docusaurus-theme-openapi-docs'], // exports ApiItem and ApiDemoPanel
