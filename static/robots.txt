@@ -1,2 +1,2 @@
 User-agent: *
-Allow: /api-docs
+Allow: /api-docs/
