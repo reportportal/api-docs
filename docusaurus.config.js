@@ -37,7 +37,7 @@ const config = {
       ({
         sitemap: {
           changefreq: 'weekly',
-          ignorePatterns: ['/api-docs/**'],
+          ignorePatterns: ['/api-docs/**', '!/api-docs'],
           filename: 'sitemap.xml',
         },
         docs: {
