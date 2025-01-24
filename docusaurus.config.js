@@ -9,8 +9,7 @@ const darkCodeTheme = themes.dracula;
 
 require('dotenv').config();
 
-// the default baseUrl is for production deployment, for dev running specify it via DOCS_BASE_URL environment variable
-const baseUrl = process.env.DOCS_BASE_URL || '/api-docs/';
+const baseUrl = '/api-docs/';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -36,6 +35,11 @@ const config = {
       'classic',
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
+        sitemap: {
+          changefreq: 'weekly',
+          ignorePatterns: ['/api-docs/**', '!/api-docs'],
+          filename: 'sitemap.xml',
+        },
         docs: {
           routeBasePath: '/',
           sidebarPath: require.resolve('./sidebars.js'),
