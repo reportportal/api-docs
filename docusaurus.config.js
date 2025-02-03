@@ -9,7 +9,7 @@ const darkCodeTheme = themes.dracula;
 
 require('dotenv').config();
 
-const baseUrl = '/api-docs/';
+const baseUrl = '/';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -37,11 +37,16 @@ const config = {
       ({
         sitemap: {
           changefreq: 'weekly',
-          ignorePatterns: ['/api-docs/**', '!/api-docs'],
+          ignorePatterns: [
+            '/api-docs/category/**',
+            '/api-docs/service-api/**',
+            '/api-docs/service-uat/**',
+            '/api-docs/api-design/**',
+          ],
           filename: 'sitemap.xml',
         },
         docs: {
-          routeBasePath: '/',
+          routeBasePath: 'api-docs',
           sidebarPath: require.resolve('./sidebars.js'),
           editUrl: 'https://github.com/reportportal/api-docs/blob/develop',
           docRootComponent: '@theme/DocRoot',
@@ -75,7 +80,7 @@ const config = {
           alt: 'ReportPortal logo',
           src: 'img/logo.svg',
           srcDark: 'img/logo-dark.svg',
-          href: '/',
+          href: '/api-docs/',
         },
         items: [
           {
@@ -97,18 +102,18 @@ const config = {
               },
               {
                 label: 'Service API',
-                to: '/category/service-api',
-                activeBasePath: '/category/service-api',
+                to: 'api-docs/category/service-api',
+                activeBasePath: 'api-docs/category/service-api',
               },
               {
                 label: 'Service UAT',
-                to: '/category/service-uat',
-                activeBasePath: '/category/service-uat',
+                to: 'api-docs/category/service-uat',
+                activeBasePath: 'api-docs/category/service-uat',
               },
               {
                 label: 'API Design',
-                to: '/category/api-design',
-                activeBasePath: '/category/api-design',
+                to: 'api-docs/category/api-design',
+                activeBasePath: 'api-docs/category/api-design',
               },
             ],
           },
@@ -229,7 +234,18 @@ const config = {
       {
         id: 'openapi',
         docsPluginId: 'classic', // e.g. "classic" or the plugin-content-docs id
-        ...openapiConfig(baseUrl),
+        ...openapiConfig('/api-docs/'),
+      },
+    ],
+    [
+      '@docusaurus/plugin-client-redirects',
+      {
+        redirects: [
+          {
+            to: '/api-docs/',
+            from: '/',
+          },
+        ],
       },
     ],
   ],

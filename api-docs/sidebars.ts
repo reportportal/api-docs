@@ -1,4 +1,4 @@
-import type { SidebarsConfig } from "@docusaurus/plugin-content-docs";
+import type { SidebarsConfig } from '@docusaurus/plugin-content-docs';
 import designSidebar from './api-design/sidebar';
 import apiSidebars from './versioned_sidebars/api-sidebars';
 import uatSidebars from './versioned_sidebars/uat-sidebars';
@@ -12,17 +12,17 @@ const apiSidebarsConfig: SidebarsConfig = {
     },
     {
       type: 'link',
-      href: '/category/service-api',
+      href: '/api-docs/category/service-api',
       label: 'Service API',
     },
     {
       type: 'link',
-      href: '/category/service-uat',
+      href: '/api-docs/category/service-uat',
       label: 'Authorization API',
     },
     {
       type: 'link',
-      href: '/api-design/reportportal-api',
+      href: '/api-docs/api-design/reportportal-api',
       label: 'API Design',
     },
   ],
