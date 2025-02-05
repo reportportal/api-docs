@@ -71,7 +71,7 @@ const config = {
         {
           name: 'keywords',
           content:
-            'test automation dashboard, ReportPortal manual, ReportPortal guide, ReportPortal documentation, test results dashboard, Centralized test reporting, real time test results, Automated defect triaging, Testops, Test management system, Test automation reporting',
+            'test automation metrics dashboard, ReportPortal manual, ReportPortal guide, ReportPortal API documentation, test results dashboard, automated defect triaging, Testops, Test management system, test automation reporting tool, test results reporting service, test report dashboard',
         },
       ],
       navbar: {
