@@ -3,12 +3,9 @@
 
 # Production
 /build
-/api-docs/*
-!/api-docs/_category_.yml
-!/api-docs/intro.mdx
-!/api-docs/sidebars.ts
-!/api-docs/versioned_sidebars
-
+/api-docs/api-design
+/api-docs/service-api
+/api-docs/service-uat
 
 # Generated files
 .docusaurus

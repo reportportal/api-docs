@@ -8,7 +8,12 @@ const apiSidebarsConfig: SidebarsConfig = {
     {
       type: 'doc',
       id: 'intro',
-      label: 'API Overview',
+      label: 'Overview',
+    },
+    {
+      type: 'doc',
+      id: 'authorization',
+      label: 'Authorization',
     },
     {
       type: 'link',
@@ -18,7 +23,7 @@ const apiSidebarsConfig: SidebarsConfig = {
     {
       type: 'link',
       href: '/api-docs/category/service-uat',
-      label: 'Authorization API',
+      label: 'Service Authorization',
     },
     {
       type: 'link',
