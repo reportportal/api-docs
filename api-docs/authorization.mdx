@@ -1,0 +1,93 @@
+# API Authorization
+
+## Introduction
+
+ReportPortal supports two types of tokens:
+
+- JWT (JSON Web Token)
+- API key
+
+All tokens are used as a bearer token in the `Authorization` header.
+
+```http
+Authorization: Bearer <token>
+```
+
+## JWT token
+
+This token contains user information and has an expiration time.
+
+We use this token for authentication in the web interface and for some API requests.
+
+Use the password flow to receive a JWT token:
+
+HTTP Request
+
+```http
+POST http://localhost:8080/uat/sso/oauth/token
+Content-Type: application/x-www-form-urlencoded
+Authorization: Basic dWk6dWltYW4=
+
+grant_type=password&username=default&password=1q2w3e
+```
+
+cURL
+
+```bash
+curl http://localhost:8080/uat/sso/oauth/token \
+  --request POST \
+  --header "Content-Type: application/x-www-form-urlencoded" \
+  --user "ui:uiman" \
+  --data "grant_type=password&username=default&password=1q2w3e"
+```
+
+Use `access_token` as a bearer token in the `Authorization` header.
+
+## API key
+
+This is a simple key that can be used to authenticate requests and does not have an expiration time.
+
+Use this token for automation scripts, agents, and development purposes.
+
+We don't store keys in the database, so you need to create a key and store it in a safe place.
+
+HTTP Request
+
+```http
+POST http://localhost:8080/api/users/{{user_id}}/api-keys
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "token name"
+}
+```
+
+cURL
+
+```bash
+curl http://localhost:8080/api/users/{user_id}/api-keys \
+  --request POST \
+  --header "Content-Type: application/json" \
+  --header "Authorization: Bearer {token}" \
+  --data '{"name": "Token name"}'
+```
+
+Use `api_key` as a bearer token in the `Authorization` header.
+
+## Revoke key
+
+HTTP Request
+
+```http
+DELETE http://localhost:8080/api/users/{{user_id}}/api-keys/{{key_id}}
+Authorization: Bearer {{token}}
+```
+
+cURL
+
+```bash
+curl http://localhost:8080/api/users/{user_id}/api-keys/{key_id} \
+  --request DELETE \
+  --header "Authorization: Bearer {token}"
+```
