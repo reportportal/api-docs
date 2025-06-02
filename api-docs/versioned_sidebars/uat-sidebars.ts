@@ -30,6 +30,31 @@ const uatSidebars: SidebarsConfig = {
     },
   ],
   // This is the sidebar for versioned Service UAT
+  'service-uat-5.13': [
+    {
+      type: 'html',
+      defaultStyle: false,
+      value: versionSelector(serviceUatVersions),
+      className: 'version-button',
+    },
+    {
+      type: 'html',
+      defaultStyle: false,
+      value: versionCrumb(`v5.13`),
+      className: 'version-crumb',
+    },
+    {
+      type: 'category',
+      label: 'Service Authorization',
+      link: {
+        type: 'generated-index',
+        title: 'Service Authorization',
+        description: 'This is a generated index of the ReportPortal Authtorization API.',
+        slug: '/category/service-uat-5.13'
+      },
+      items: require('../service-uat/versions/5.13/sidebar.ts')
+    }
+  ],
   'service-uat-5.12': [
     {
       type: 'html',

@@ -21,6 +21,12 @@ const openapiConfig = (baseUrl) => ({
       label: 'v5.14',
       baseUrl: `${baseUrl}category/service-api`, // base URL for the API docs,
       versions: {
+        5.13: {
+          specPath: 'apis/5.13/service-api.yaml',
+          outputDir: 'api-docs/service-api/versions/5.13',
+          label: 'v5.13',
+          baseUrl: `${baseUrl}category/service-api-5.13`,
+        },
         5.12: {
           specPath: 'apis/5.12/service-api.yaml',
           outputDir: 'api-docs/service-api/versions/5.12',
@@ -52,6 +58,12 @@ const openapiConfig = (baseUrl) => ({
       label: 'v5.14',
       baseUrl: `${baseUrl}category/service-uat`,
       versions: {
+        5.13: {
+          specPath: 'apis/5.13/service-uat.yaml',
+          outputDir: 'api-docs/service-uat/versions/5.13',
+          label: 'v5.13',
+          baseUrl: `${baseUrl}category/service-uat-5.13`,
+        },
         5.12: {
           specPath: 'apis/5.12/service-uat.yaml',
           outputDir: 'api-docs/service-uat/versions/5.12',
