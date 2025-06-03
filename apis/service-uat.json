@@ -1,5 +1,5 @@
 {
-  "openapi": "3.0.1",
+  "openapi": "3.1.0",
   "info": {
     "title": "ReportPortal",
     "description": "ReportPortal UAT documentation",
@@ -9,27 +9,13 @@
     },
     "license": {
       "name": "Apache 2.0",
-      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+      "url": "https://www.apache.org/licenses/LICENSE-2.0"
     },
-    "version": "5.12.0"
+    "version": "5.14.0"
   },
   "servers": [
     {
-      "url": "{scheme}://{host}/uat",
-      "description": "ReportPortal authtorization server",
-      "variables": {
-        "scheme": {
-          "enum": [
-            "http",
-            "https"
-          ],
-          "default": "http"
-        },
-        "host": {
-          "description": "Host name and port (if needed) of Report Portal server",
-          "default": "demo.reportportal.io"
-        }
-      }
+      "url": "/uat"
     }
   ],
   "security": [
@@ -62,7 +48,7 @@
           "o-auth-configuration-endpoint"
         ],
         "summary": "Returns OAuth Server Settings",
-        "operationId": "getOAuthSettings_1",
+        "operationId": "getOAuthSettings",
         "parameters": [
           {
             "name": "authId",
@@ -194,7 +180,7 @@
         }
       }
     },
-    "/sso/me": {
+    "/sso/user": {
       "get": {
         "tags": [
           "sso-endpoint"
@@ -240,7 +226,7 @@
         }
       }
     },
-    "/sso/user": {
+    "/sso/me": {
       "get": {
         "tags": [
           "sso-endpoint"
@@ -448,7 +434,7 @@
           "o-auth-configuration-endpoint"
         ],
         "summary": "Returns OAuth Server Settings",
-        "operationId": "getOAuthSettings",
+        "operationId": "getOAuthSettings_1",
         "responses": {
           "200": {
             "description": "OK",
@@ -510,10 +496,6 @@
         }
       },
       "OAuthRegistrationResource": {
-        "required": [
-          "clientId",
-          "clientSecret"
-        ],
         "type": "object",
         "properties": {
           "id": {
@@ -535,14 +517,14 @@
             "type": "string"
           },
           "authorizationUri": {
-            "pattern": "^(http://|https://)?(www\\.)?([a-zA-Z0-9-]+)(\\.[a-zA-Z0-9-]+)*(:[0-9]+)?(/[a-z_-]+)*$",
             "type": "string",
-            "example": "string"
+            "example": "string",
+            "pattern": "^(http://|https://)?(www\\.)?([a-zA-Z0-9-]+)(\\.[a-zA-Z0-9-]+)*(:[0-9]+)?(/[a-z_-]+)*$"
           },
           "tokenUri": {
-            "pattern": "^(http://|https://)?(www\\.)?([a-zA-Z0-9-]+)(\\.[a-zA-Z0-9-]+)*(:[0-9]+)?(/[a-z_-]+)*$",
             "type": "string",
-            "example": "string"
+            "example": "string",
+            "pattern": "^(http://|https://)?(www\\.)?([a-zA-Z0-9-]+)(\\.[a-zA-Z0-9-]+)*(:[0-9]+)?(/[a-z_-]+)*$"
           },
           "userInfoEndpointUri": {
             "type": "string"
@@ -557,11 +539,11 @@
             "type": "string"
           },
           "scopes": {
-            "uniqueItems": true,
             "type": "array",
             "items": {
               "type": "string"
-            }
+            },
+            "uniqueItems": true
           },
           "restrictions": {
             "type": "object",
@@ -569,7 +551,11 @@
               "type": "string"
             }
           }
-        }
+        },
+        "required": [
+          "clientId",
+          "clientSecret"
+        ]
       },
       "OperationCompletionRS": {
         "type": "object",
@@ -580,10 +566,6 @@
         }
       },
       "UpdateAuthRQ": {
-        "required": [
-          "enabled",
-          "integrationParameters"
-        ],
         "type": "object",
         "properties": {
           "enabled": {
@@ -595,12 +577,17 @@
               "type": "object"
             }
           }
-        }
+        },
+        "required": [
+          "enabled",
+          "integrationParameters"
+        ]
       }
     },
     "securitySchemes": {
       "bearerAuth": {
         "type": "http",
+        "name": "bearerAuth",
         "scheme": "bearer",
         "bearerFormat": "JWT"
       }
