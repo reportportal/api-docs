@@ -19850,7 +19850,7 @@
       }
     },
     "securitySchemes": {
-      "bearerAuth": {
+      "BearerAuth": {
         "type": "http",
         "name": "bearerAuth",
         "scheme": "bearer",
