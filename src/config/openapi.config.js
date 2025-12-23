@@ -2,7 +2,7 @@ const openapiConfig = (baseUrl) => ({
   config: {
     designApi: {
       specPath:
-        'https://raw.githubusercontent.com/reportportal/api-registry/detached/api/openapi/reportportal-api.yaml',
+        'https://raw.githubusercontent.com/reportportal/api-registry/refs/heads/main/api/openapi/reportportal-api.yaml',
       outputDir: 'api-docs/api-design',
       sidebarOptions: {
         groupPathsBy: 'tag',
