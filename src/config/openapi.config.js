@@ -17,10 +17,16 @@ const openapiConfig = (baseUrl) => ({
         groupPathsBy: 'tag', // generate a sidebar.js slice that groups operations by tag
         categoryLinkSource: 'tag',
       },
-      version: '5.14',
-      label: 'v5.14',
+      version: '5.15',
+      label: 'v5.15',
       baseUrl: `${baseUrl}category/service-api`, // base URL for the API docs,
       versions: {
+        5.14: {
+          specPath: 'apis/5.14/service-api.yaml',
+          outputDir: 'api-docs/service-api/versions/5.14',
+          label: 'v5.14',
+          baseUrl: `${baseUrl}category/service-api-5.14`,
+        },
         5.13: {
           specPath: 'apis/5.13/service-api.yaml',
           outputDir: 'api-docs/service-api/versions/5.13',
@@ -54,10 +60,16 @@ const openapiConfig = (baseUrl) => ({
         groupPathsBy: 'tag',
         categoryLinkSource: 'tag',
       },
-      version: '5.14',
-      label: 'v5.14',
+      version: '5.15',
+      label: 'v5.15',
       baseUrl: `${baseUrl}category/service-uat`,
       versions: {
+        5.14: {
+          specPath: 'apis/5.14/service-uat.yaml',
+          outputDir: 'api-docs/service-uat/versions/5.14',
+          label: 'v5.14',
+          baseUrl: `${baseUrl}category/service-uat-5.14`,
+        },
         5.13: {
           specPath: 'apis/5.13/service-uat.yaml',
           outputDir: 'api-docs/service-uat/versions/5.13',
