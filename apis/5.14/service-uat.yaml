@@ -284,7 +284,7 @@ paths:
     delete:
       tags:
         - auth-configuration-endpoint
-      summary: Retrieves auth settings
+      summary: Deletes auth integration settings
       operationId: deleteSettings
       parameters:
         - name: integrationId

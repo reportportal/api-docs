@@ -449,7 +449,7 @@
               "tags": [
                   "auth-configuration-endpoint"
               ],
-              "summary": "Retrieves auth settings",
+              "summary": "Deletes auth integrations",
               "operationId": "deleteSettings",
               "parameters": [
                   {

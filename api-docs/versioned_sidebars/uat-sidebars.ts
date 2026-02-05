@@ -23,7 +23,7 @@ const uatSidebars: SidebarsConfig = {
       link: {
         type: 'generated-index',
         title: 'Service Authorization',
-        description: 'This is a generated index of the ReportPortal Authtorization API.',
+        description: 'This is a generated index of the ReportPortal Authorization API.',
         slug: '/category/service-uat',
       },
       items: require('../service-uat/sidebar.ts'),
@@ -49,7 +49,7 @@ const uatSidebars: SidebarsConfig = {
       link: {
         type: 'generated-index',
         title: 'Service Authorization',
-        description: 'This is a generated index of the ReportPortal Authtorization API.',
+        description: 'This is a generated index of the ReportPortal Authorization API.',
         slug: '/category/service-uat-5.14'
       },
       items: require('../service-uat/versions/5.14/sidebar.ts')
@@ -74,7 +74,7 @@ const uatSidebars: SidebarsConfig = {
       link: {
         type: 'generated-index',
         title: 'Service Authorization',
-        description: 'This is a generated index of the ReportPortal Authtorization API.',
+        description: 'This is a generated index of the ReportPortal Authorization API.',
         slug: '/category/service-uat-5.13'
       },
       items: require('../service-uat/versions/5.13/sidebar.ts')
@@ -99,7 +99,7 @@ const uatSidebars: SidebarsConfig = {
       link: {
         type: 'generated-index',
         title: 'Service Authorization',
-        description: 'This is a generated index of the ReportPortal Authtorization API.',
+        description: 'This is a generated index of the ReportPortal Authorization API.',
         slug: '/category/service-uat-5.12'
       },
       items: require('../service-uat/versions/5.12/sidebar.ts')
@@ -124,7 +124,7 @@ const uatSidebars: SidebarsConfig = {
       link: {
         type: 'generated-index',
         title: 'Service Authorization',
-        description: 'This is a generated index of the ReportPortal Authtorization API.',
+        description: 'This is a generated index of the ReportPortal Authorization API.',
         slug: '/category/service-uat-5.11'
       },
       items: require('../service-uat/versions/5.11/sidebar.ts')
@@ -149,7 +149,7 @@ const uatSidebars: SidebarsConfig = {
       link: {
         type: 'generated-index',
         title: 'Service Authorization',
-        description: 'This is a generated index of the ReportPortal Authtorization API.',
+        description: 'This is a generated index of the ReportPortal Authorization API.',
         slug: '/category/service-uat-5.10'
       },
       items: require('../service-uat/versions/5.10/sidebar.ts')
