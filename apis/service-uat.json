@@ -1,596 +1,589 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "ReportPortal",
-    "description": "ReportPortal UAT documentation",
-    "contact": {
-      "name": "Support",
-      "email": "support@reportportal.io"
-    },
-    "license": {
-      "name": "Apache 2.0",
-      "url": "https://www.apache.org/licenses/LICENSE-2.0"
-    },
-    "version": "5.14.0"
+      "title": "ReportPortal",
+      "description": "ReportPortal UAT documentation",
+      "contact": {
+          "name": "Support",
+          "email": "support@reportportal.io"
+      },
+      "license": {
+          "name": "Apache 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      },
+      "version": "5.15.0"
   },
   "servers": [
-    {
-      "url": "/uat"
-    }
+      {
+          "url": "/uat"
+      }
   ],
   "security": [
-    {
-      "bearerAuth": []
-    }
+      {
+          "bearerAuth": []
+      }
   ],
   "tags": [
-    {
-      "name": "auth-configuration-endpoint",
-      "description": "Auth Configuration Endpoint"
-    },
-    {
-      "name": "github-endpoint",
-      "description": "Github Endpoint"
-    },
-    {
-      "name": "o-auth-configuration-endpoint",
-      "description": "O Auth Configuration Endpoint"
-    },
-    {
-      "name": "sso-endpoint",
-      "description": "Sso Endpoint"
-    }
+      {
+          "name": "auth-configuration-endpoint",
+          "description": "Auth Configuration Endpoint"
+      },
+      {
+          "name": "github-endpoint",
+          "description": "Github Endpoint"
+      },
+      {
+          "name": "o-auth-configuration-endpoint",
+          "description": "O Auth Configuration Endpoint"
+      },
+      {
+          "name": "sso-endpoint",
+          "description": "Sso Endpoint"
+      }
   ],
   "paths": {
-    "/settings/oauth/{authId}": {
-      "get": {
-        "tags": [
-          "o-auth-configuration-endpoint"
-        ],
-        "summary": "Returns OAuth Server Settings",
-        "operationId": "getOAuthSettings",
-        "parameters": [
-          {
-            "name": "authId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/OAuthRegistrationResource"
-                }
-              }
-            }
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "o-auth-configuration-endpoint"
-        ],
-        "summary": "Creates/Updates OAuth Integration Settings",
-        "operationId": "updateOAuthSettings_1",
-        "parameters": [
-          {
-            "name": "authId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/OAuthRegistrationResource"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/OAuthRegistrationResource"
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "o-auth-configuration-endpoint"
-        ],
-        "summary": "Creates/Updates OAuth Integration Settings",
-        "operationId": "updateOAuthSettings",
-        "parameters": [
-          {
-            "name": "authId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/OAuthRegistrationResource"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/OAuthRegistrationResource"
-                }
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "o-auth-configuration-endpoint"
-        ],
-        "summary": "Deletes OAuth Integration Settings",
-        "operationId": "deleteOAuthSetting",
-        "parameters": [
-          {
-            "name": "authId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/OperationCompletionRS"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/sso/user": {
-      "get": {
-        "tags": [
-          "sso-endpoint"
-        ],
-        "summary": "Get user details",
-        "operationId": "user",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": {
-                    "type": "object"
+      "/settings/oauth/{authId}": {
+          "get": {
+              "tags": [
+                  "o-auth-configuration-endpoint"
+              ],
+              "summary": "Returns OAuth Server Settings",
+              "operationId": "getOAuthSettings",
+              "parameters": [
+                  {
+                      "name": "authId",
+                      "in": "path",
+                      "required": true,
+                      "schema": {
+                          "type": "string"
+                      }
                   }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "sso-endpoint"
-        ],
-        "summary": "Get user details",
-        "operationId": "user_1",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": {
-                    "type": "object"
+              ],
+              "responses": {
+                  "200": {
+                      "description": "OK",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "$ref": "#/components/schemas/OAuthRegistrationResource"
+                              }
+                          }
+                      }
                   }
-                }
               }
-            }
-          }
-        }
-      }
-    },
-    "/sso/me": {
-      "get": {
-        "tags": [
-          "sso-endpoint"
-        ],
-        "summary": "Get user details",
-        "operationId": "user_2",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": {
-                    "type": "object"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "sso-endpoint"
-        ],
-        "summary": "Get user details",
-        "operationId": "user_3",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": {
-                    "type": "object"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/settings/auth/{authType}/{integrationId}": {
-      "put": {
-        "tags": [
-          "auth-configuration-endpoint"
-        ],
-        "summary": "Update auth integration",
-        "operationId": "updateAuthIntegration",
-        "parameters": [
-          {
-            "name": "authType",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "enum": [
-                "ad",
-                "ldap",
-                "saml"
-              ]
-            }
           },
-          {
-            "name": "integrationId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateAuthRQ"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AbstractAuthResource"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/sso/me/github/synchronize": {
-      "post": {
-        "tags": [
-          "github-endpoint"
-        ],
-        "summary": "Synchronizes logged-in GitHub user",
-        "operationId": "synchronize",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/OperationCompletionRS"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/settings/auth/{authType}": {
-      "get": {
-        "tags": [
-          "auth-configuration-endpoint"
-        ],
-        "summary": "Retrieves auth settings",
-        "operationId": "getSettings",
-        "parameters": [
-          {
-            "name": "authType",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "enum": [
-                "ad",
-                "ldap",
-                "saml"
-              ]
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AbstractAuthResource"
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "auth-configuration-endpoint"
-        ],
-        "summary": "Create new auth integration",
-        "operationId": "createAuthIntegration",
-        "parameters": [
-          {
-            "name": "authType",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "enum": [
-                "ad",
-                "ldap",
-                "saml"
-              ]
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateAuthRQ"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AbstractAuthResource"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/settings/oauth": {
-      "get": {
-        "tags": [
-          "o-auth-configuration-endpoint"
-        ],
-        "summary": "Returns OAuth Server Settings",
-        "operationId": "getOAuthSettings_1",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": {
-                    "$ref": "#/components/schemas/OAuthRegistrationResource"
+          "put": {
+              "tags": [
+                  "o-auth-configuration-endpoint"
+              ],
+              "summary": "Creates/Updates OAuth Integration Settings",
+              "operationId": "updateOAuthSettings_1",
+              "parameters": [
+                  {
+                      "name": "authId",
+                      "in": "path",
+                      "required": true,
+                      "schema": {
+                          "type": "string"
+                      }
                   }
-                }
+              ],
+              "requestBody": {
+                  "content": {
+                      "application/json": {
+                          "schema": {
+                              "$ref": "#/components/schemas/OAuthRegistrationResource"
+                          }
+                      }
+                  },
+                  "required": true
+              },
+              "responses": {
+                  "200": {
+                      "description": "OK",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "$ref": "#/components/schemas/OAuthRegistrationResource"
+                              }
+                          }
+                      }
+                  }
               }
-            }
-          }
-        }
-      }
-    },
-    "/settings/auth/{integrationId}": {
-      "delete": {
-        "tags": [
-          "auth-configuration-endpoint"
-        ],
-        "summary": "Retrieves auth settings",
-        "operationId": "deleteSettings",
-        "parameters": [
-          {
-            "name": "integrationId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/OperationCompletionRS"
-                }
+          },
+          "post": {
+              "tags": [
+                  "o-auth-configuration-endpoint"
+              ],
+              "summary": "Creates/Updates OAuth Integration Settings",
+              "operationId": "updateOAuthSettings",
+              "parameters": [
+                  {
+                      "name": "authId",
+                      "in": "path",
+                      "required": true,
+                      "schema": {
+                          "type": "string"
+                      }
+                  }
+              ],
+              "requestBody": {
+                  "content": {
+                      "application/json": {
+                          "schema": {
+                              "$ref": "#/components/schemas/OAuthRegistrationResource"
+                          }
+                      }
+                  },
+                  "required": true
+              },
+              "responses": {
+                  "200": {
+                      "description": "OK",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "$ref": "#/components/schemas/OAuthRegistrationResource"
+                              }
+                          }
+                      }
+                  }
               }
-            }
+          },
+          "delete": {
+              "tags": [
+                  "o-auth-configuration-endpoint"
+              ],
+              "summary": "Deletes OAuth Integration Settings",
+              "operationId": "deleteOAuthSetting",
+              "parameters": [
+                  {
+                      "name": "authId",
+                      "in": "path",
+                      "required": true,
+                      "schema": {
+                          "type": "string"
+                      }
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "OK",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "$ref": "#/components/schemas/OperationCompletionRS"
+                              }
+                          }
+                      }
+                  }
+              }
           }
-        }
+      },
+      "/sso/user": {
+          "get": {
+              "tags": [
+                  "sso-endpoint"
+              ],
+              "summary": "Get user details",
+              "operationId": "user",
+              "responses": {
+                  "200": {
+                      "description": "OK",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "type": "object",
+                                  "additionalProperties": {}
+                              }
+                          }
+                      }
+                  }
+              }
+          },
+          "post": {
+              "tags": [
+                  "sso-endpoint"
+              ],
+              "summary": "Get user details",
+              "operationId": "user_1",
+              "responses": {
+                  "200": {
+                      "description": "OK",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "type": "object",
+                                  "additionalProperties": {}
+                              }
+                          }
+                      }
+                  }
+              }
+          }
+      },
+      "/sso/me": {
+          "get": {
+              "tags": [
+                  "sso-endpoint"
+              ],
+              "summary": "Get user details",
+              "operationId": "user_2",
+              "responses": {
+                  "200": {
+                      "description": "OK",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "type": "object",
+                                  "additionalProperties": {}
+                              }
+                          }
+                      }
+                  }
+              }
+          },
+          "post": {
+              "tags": [
+                  "sso-endpoint"
+              ],
+              "summary": "Get user details",
+              "operationId": "user_3",
+              "responses": {
+                  "200": {
+                      "description": "OK",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "type": "object",
+                                  "additionalProperties": {}
+                              }
+                          }
+                      }
+                  }
+              }
+          }
+      },
+      "/settings/auth/{authType}/{integrationId}": {
+          "put": {
+              "tags": [
+                  "auth-configuration-endpoint"
+              ],
+              "summary": "Update auth integration",
+              "operationId": "updateAuthIntegration",
+              "parameters": [
+                  {
+                      "name": "authType",
+                      "in": "path",
+                      "required": true,
+                      "schema": {
+                          "type": "string",
+                          "enum": [
+                              "ad",
+                              "ldap",
+                              "saml"
+                          ]
+                      }
+                  },
+                  {
+                      "name": "integrationId",
+                      "in": "path",
+                      "required": true,
+                      "schema": {
+                          "type": "integer",
+                          "format": "int64"
+                      }
+                  }
+              ],
+              "requestBody": {
+                  "content": {
+                      "application/json": {
+                          "schema": {
+                              "$ref": "#/components/schemas/UpdateAuthRQ"
+                          }
+                      }
+                  },
+                  "required": true
+              },
+              "responses": {
+                  "200": {
+                      "description": "OK",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "$ref": "#/components/schemas/AbstractAuthResource"
+                              }
+                          }
+                      }
+                  }
+              }
+          }
+      },
+      "/sso/me/github/synchronize": {
+          "post": {
+              "tags": [
+                  "github-endpoint"
+              ],
+              "summary": "Synchronizes logged-in GitHub user",
+              "operationId": "synchronize",
+              "responses": {
+                  "200": {
+                      "description": "OK",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "$ref": "#/components/schemas/OperationCompletionRS"
+                              }
+                          }
+                      }
+                  }
+              }
+          }
+      },
+      "/settings/auth/{authType}": {
+          "get": {
+              "tags": [
+                  "auth-configuration-endpoint"
+              ],
+              "summary": "Retrieves auth settings",
+              "operationId": "getSettings",
+              "parameters": [
+                  {
+                      "name": "authType",
+                      "in": "path",
+                      "required": true,
+                      "schema": {
+                          "type": "string",
+                          "enum": [
+                              "ad",
+                              "ldap",
+                              "saml"
+                          ]
+                      }
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "OK",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "$ref": "#/components/schemas/AbstractAuthResource"
+                              }
+                          }
+                      }
+                  }
+              }
+          },
+          "post": {
+              "tags": [
+                  "auth-configuration-endpoint"
+              ],
+              "summary": "Create new auth integration",
+              "operationId": "createAuthIntegration",
+              "parameters": [
+                  {
+                      "name": "authType",
+                      "in": "path",
+                      "required": true,
+                      "schema": {
+                          "type": "string",
+                          "enum": [
+                              "ad",
+                              "ldap",
+                              "saml"
+                          ]
+                      }
+                  }
+              ],
+              "requestBody": {
+                  "content": {
+                      "application/json": {
+                          "schema": {
+                              "$ref": "#/components/schemas/UpdateAuthRQ"
+                          }
+                      }
+                  },
+                  "required": true
+              },
+              "responses": {
+                  "200": {
+                      "description": "OK",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "$ref": "#/components/schemas/AbstractAuthResource"
+                              }
+                          }
+                      }
+                  }
+              }
+          }
+      },
+      "/settings/oauth": {
+          "get": {
+              "tags": [
+                  "o-auth-configuration-endpoint"
+              ],
+              "summary": "Returns OAuth Server Settings",
+              "operationId": "getOAuthSettings_1",
+              "responses": {
+                  "200": {
+                      "description": "OK",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "type": "object",
+                                  "additionalProperties": {
+                                      "$ref": "#/components/schemas/OAuthRegistrationResource"
+                                  }
+                              }
+                          }
+                      }
+                  }
+              }
+          }
+      },
+      "/settings/auth/{integrationId}": {
+          "delete": {
+              "tags": [
+                  "auth-configuration-endpoint"
+              ],
+              "summary": "Deletes auth integrations",
+              "operationId": "deleteSettings",
+              "parameters": [
+                  {
+                      "name": "integrationId",
+                      "in": "path",
+                      "required": true,
+                      "schema": {
+                          "type": "integer",
+                          "format": "int64"
+                      }
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "OK",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "$ref": "#/components/schemas/OperationCompletionRS"
+                              }
+                          }
+                      }
+                  }
+              }
+          }
       }
-    }
   },
   "components": {
-    "schemas": {
-      "AbstractAuthResource": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "type": "string"
+      "schemas": {
+          "AbstractAuthResource": {
+              "type": "object",
+              "properties": {
+                  "type": {
+                      "type": "string"
+                  }
+              }
+          },
+          "OAuthRegistrationResource": {
+              "type": "object",
+              "properties": {
+                  "id": {
+                      "type": "string"
+                  },
+                  "clientId": {
+                      "type": "string",
+                      "minLength": 1
+                  },
+                  "clientSecret": {
+                      "type": "string",
+                      "minLength": 1
+                  },
+                  "clientAuthMethod": {
+                      "type": "string"
+                  },
+                  "authGrantType": {
+                      "type": "string"
+                  },
+                  "redirectUrlTemplate": {
+                      "type": "string"
+                  },
+                  "authorizationUri": {
+                      "type": "string",
+                      "example": "string",
+                      "pattern": "^(http://|https://)?(www\\.)?([a-zA-Z0-9-]+)(\\.[a-zA-Z0-9-]+)*(:[0-9]+)?(/[a-z_-]+)*$"
+                  },
+                  "tokenUri": {
+                      "type": "string",
+                      "example": "string",
+                      "pattern": "^(http://|https://)?(www\\.)?([a-zA-Z0-9-]+)(\\.[a-zA-Z0-9-]+)*(:[0-9]+)?(/[a-z_-]+)*$"
+                  },
+                  "userInfoEndpointUri": {
+                      "type": "string"
+                  },
+                  "userInfoEndpointNameAttribute": {
+                      "type": "string"
+                  },
+                  "jwkSetUri": {
+                      "type": "string"
+                  },
+                  "clientName": {
+                      "type": "string"
+                  },
+                  "scopes": {
+                      "type": "array",
+                      "items": {
+                          "type": "string"
+                      },
+                      "uniqueItems": true
+                  },
+                  "restrictions": {
+                      "type": "object",
+                      "additionalProperties": {
+                          "type": "string"
+                      }
+                  }
+              },
+              "required": [
+                  "clientId",
+                  "clientSecret"
+              ]
+          },
+          "OperationCompletionRS": {
+              "type": "object",
+              "properties": {
+                  "message": {
+                      "type": "string"
+                  }
+              }
+          },
+          "UpdateAuthRQ": {
+              "type": "object",
+              "properties": {
+                  "enabled": {
+                      "type": "boolean"
+                  },
+                  "integrationParameters": {
+                      "type": "object",
+                      "additionalProperties": {},
+                      "minProperties": 1
+                  }
+              },
+              "required": [
+                  "enabled",
+                  "integrationParameters"
+              ]
           }
-        }
       },
-      "OAuthRegistrationResource": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "clientId": {
-            "type": "string"
-          },
-          "clientSecret": {
-            "type": "string"
-          },
-          "clientAuthMethod": {
-            "type": "string"
-          },
-          "authGrantType": {
-            "type": "string"
-          },
-          "redirectUrlTemplate": {
-            "type": "string"
-          },
-          "authorizationUri": {
-            "type": "string",
-            "example": "string",
-            "pattern": "^(http://|https://)?(www\\.)?([a-zA-Z0-9-]+)(\\.[a-zA-Z0-9-]+)*(:[0-9]+)?(/[a-z_-]+)*$"
-          },
-          "tokenUri": {
-            "type": "string",
-            "example": "string",
-            "pattern": "^(http://|https://)?(www\\.)?([a-zA-Z0-9-]+)(\\.[a-zA-Z0-9-]+)*(:[0-9]+)?(/[a-z_-]+)*$"
-          },
-          "userInfoEndpointUri": {
-            "type": "string"
-          },
-          "userInfoEndpointNameAttribute": {
-            "type": "string"
-          },
-          "jwkSetUri": {
-            "type": "string"
-          },
-          "clientName": {
-            "type": "string"
-          },
-          "scopes": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "uniqueItems": true
-          },
-          "restrictions": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "string"
-            }
+      "securitySchemes": {
+          "bearerAuth": {
+              "type": "http",
+              "name": "bearerAuth",
+              "scheme": "bearer",
+              "bearerFormat": "JWT"
           }
-        },
-        "required": [
-          "clientId",
-          "clientSecret"
-        ]
-      },
-      "OperationCompletionRS": {
-        "type": "object",
-        "properties": {
-          "message": {
-            "type": "string"
-          }
-        }
-      },
-      "UpdateAuthRQ": {
-        "type": "object",
-        "properties": {
-          "enabled": {
-            "type": "boolean"
-          },
-          "integrationParameters": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "object"
-            }
-          }
-        },
-        "required": [
-          "enabled",
-          "integrationParameters"
-        ]
       }
-    },
-    "securitySchemes": {
-      "bearerAuth": {
-        "type": "http",
-        "name": "bearerAuth",
-        "scheme": "bearer",
-        "bearerFormat": "JWT"
-      }
-    }
   }
 }

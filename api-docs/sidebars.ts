@@ -27,7 +27,7 @@ const apiSidebarsConfig: SidebarsConfig = {
     },
     {
       type: 'link',
-      href: '/api-docs/api-design/reportportal-api',
+      href: '/api-docs/api-design/reportportal-reference-api',
       label: 'API Design',
     },
   ],
