@@ -18,10 +18,6 @@ function docsLink(path = '') {
   return deployedAtRoot ? `${DOCS_SLUG}/${path}` : path;
 }
 
-const redirectPlugins = deployedAtRoot
-  ? [['@docusaurus/plugin-client-redirects', { redirects: [{ to: `/${DOCS_SLUG}/`, from: '/' }] }]]
-  : [];
-
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'ReportPortal API Documentation',
@@ -248,7 +244,6 @@ const config = {
         ...openapiConfig(docsLink()),
       },
     ],
-    ...redirectPlugins,
   ],
 };
 
