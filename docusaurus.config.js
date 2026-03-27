@@ -9,14 +9,7 @@ const darkCodeTheme = themes.dracula;
 
 require('dotenv').config();
 
-const DOCS_SLUG = 'api-docs';
 const baseUrl = process.env.DOCS_BASE_URL || '/';
-const deployedAtRoot = baseUrl === '/';
-const routeBasePath = deployedAtRoot ? DOCS_SLUG : '/';
-
-function docsLink(path = '') {
-  return deployedAtRoot ? `${DOCS_SLUG}/${path}` : path;
-}
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -45,15 +38,15 @@ const config = {
         sitemap: {
           changefreq: 'weekly',
           ignorePatterns: [
-            '/api-docs/category/**',
-            '/api-docs/service-api/**',
-            '/api-docs/service-uat/**',
-            '/api-docs/api-design/**',
+            '/category/**',
+            '/service-api/**',
+            '/service-uat/**',
+            '/api-design/**',
           ],
           filename: 'sitemap.xml',
         },
         docs: {
-          routeBasePath,
+          routeBasePath: '/',
           sidebarPath: require.resolve('./sidebars.js'),
           editUrl: 'https://github.com/reportportal/api-docs/blob/develop',
           docRootComponent: '@theme/DocRoot',
@@ -87,7 +80,7 @@ const config = {
           alt: 'ReportPortal logo',
           src: 'img/logo.svg',
           srcDark: 'img/logo-dark.svg',
-          href: '/api-docs/',
+          href: '/',
         },
         items: [
           {
@@ -109,18 +102,18 @@ const config = {
               },
               {
                 label: 'Service API',
-                to: docsLink('category/service-api'),
-                activeBasePath: docsLink('category/service-api'),
+                to: '/category/service-api',
+                activeBasePath: '/category/service-api',
               },
               {
                 label: 'Service UAT',
-                to: docsLink('category/service-uat'),
-                activeBasePath: docsLink('category/service-uat'),
+                to: '/category/service-uat',
+                activeBasePath: '/category/service-uat',
               },
               {
                 label: 'API Design',
-                to: docsLink('category/api-design'),
-                activeBasePath: docsLink('category/api-design'),
+                to: '/category/api-design',
+                activeBasePath: '/category/api-design',
               },
             ],
           },
@@ -241,7 +234,7 @@ const config = {
       {
         id: 'openapi',
         docsPluginId: 'classic',
-        ...openapiConfig(docsLink()),
+        ...openapiConfig(baseUrl),
       },
     ],
   ],
