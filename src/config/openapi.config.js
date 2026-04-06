@@ -1,4 +1,4 @@
-const openapiConfig = (baseUrl) => ({
+const openapiConfig = (baseUrl = '/') => ({
   config: {
     designApi: {
       specPath:
@@ -19,7 +19,7 @@ const openapiConfig = (baseUrl) => ({
       },
       version: '5.15',
       label: 'v5.15',
-      baseUrl: `${baseUrl}category/service-api`, // base URL for the API docs,
+      baseUrl: `${baseUrl}category/service-api`,
       versions: {
         5.14: {
           specPath: 'apis/5.14/service-api.yaml',
