@@ -21,7 +21,7 @@
     "clean-all": "docusaurus clean-api-docs all && docusaurus clean-api-docs:version serviceApi:all && docusaurus clean-api-docs:version serviceUat:all",
     "re-gen": "npm run clean-all && npm run gen-all",
     "fetch-api-docs": "node scripts/fetch-api-docs/index.mjs",
-    "validate-api-docs": "npx redocly lint --config redocly.lint.yaml apis/service-api.json apis/service-uat.json"
+    "validate-api-docs": "npx redocly lint --config redocly.lint.yaml --max-problems=0 apis/service-api.json apis/service-uat.json"
   },
   "repository": {
     "type": "git",

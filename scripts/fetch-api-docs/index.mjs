@@ -47,7 +47,7 @@ function getCurrentSpec(filePath) {
 function writeSpec(filePath, spec) {
   try {
     const json = JSON.stringify(spec, null, 2);
-    fs.writeFileSync(filePath, json, 'utf8');
+    fs.writeFileSync(filePath, `${json}\n`, 'utf8');
     console.log(`Wrote ${filePath}`);
   } catch (error) {
     throw new Error(`Failed to write ${filePath}: ${error.message}`);
@@ -57,48 +57,42 @@ function writeSpec(filePath, spec) {
 /**
  * Archives the old spec as YAML under its version directory.
  */
-function archiveSpec(spec, version, service) {
+function archiveSpec(spec, version, serviceConfig) {
   try {
     const archiveDir = path.resolve(ROOT, 'apis', version);
     if (!fs.existsSync(archiveDir)) {
       fs.mkdirSync(archiveDir, { recursive: true });
     }
 
-    const filename = `service-${service}.yaml`;
+    const filename = `service-${serviceConfig.key}.yaml`;
     const archivePath = path.resolve(archiveDir, filename);
     const yaml = YAML.stringify(spec);
     fs.writeFileSync(archivePath, yaml, 'utf8');
-    console.log(`Archived ${archivePath}`);
+    console.log(`[${serviceConfig.name}] Archived ${archivePath}`);
   } catch (error) {
     throw new Error(`Failed to archive spec: ${error.message}`);
   }
 }
 
 /**
- * Updates the OpenAPI config when a new version needs to be added.
+ * Updates the versions config when a new version needs to be added.
+ * Versions config is the single source of truth in src/config/versions/.
  */
-function updateOpenapiConfig(service, currentVersion, newVersion) {
+function updateVersionsConfig(newVersion, serviceConfig) {
   try {
-    const configPath = 'src/config/openapi.config.js';
-    let content = fs.readFileSync(configPath, 'utf8');
+    const versionsConfigPath = path.resolve(
+      ROOT,
+      `src/config/versions/service-${serviceConfig.key}.json`,
+    );
+    let versionsConfig = JSON.parse(fs.readFileSync(versionsConfigPath, 'utf8'));
+    versionsConfig = versionsConfig.filter((entry) => entry.version !== newVersion); // Deduplicate: remove if version already exists
+    versionsConfig = [{ version: newVersion }, ...versionsConfig]; // Prepend new version (becomes current, maintains descending order)
 
-    // TODO: implement config update logic when a new version is added.
-    // This is a placeholder for now.
-    console.log(`Updated OpenAPI config for ${service}: ${newVersion}`);
+    const json = JSON.stringify(versionsConfig, null, 2);
+    fs.writeFileSync(versionsConfigPath, `${json}\n`, 'utf8');
+    console.log(`[${serviceConfig.name}] Versions config updated: added version ${newVersion}`);
   } catch (error) {
-    throw new Error(`Failed to update OpenAPI config: ${error.message}`);
-  }
-}
-
-/**
- * Updates the sidebars file when a new version is added.
- */
-function updateSidebarsFile(service, currentVersion, newVersion) {
-  try {
-    // TODO: implement sidebars update logic when a new version is added.
-    console.log(`Updated sidebars for ${service}: ${newVersion}`);
-  } catch (error) {
-    throw new Error(`Failed to update sidebars: ${error.message}`);
+    throw new Error(`Failed to update versions config: ${error.message}`);
   }
 }
 
@@ -134,11 +128,10 @@ async function processService(config) {
     if (currentMajorMinor && currentMajorMinor !== remoteMajorMinor) {
       // A new major.minor version was detected, so archive the old spec.
       console.warn(
-        `[${config.name}] New version detected: ${currentMajorMinor} -> ${remoteMajorMinor}`
+        `[${config.name}] New version detected: ${currentMajorMinor} -> ${remoteMajorMinor}`,
       );
-      archiveSpec(currentSpec, currentMajorMinor, config.key);
-      updateOpenapiConfig(config.key, currentMajorMinor, remoteMajorMinor);
-      updateSidebarsFile(config.key, currentMajorMinor, remoteMajorMinor);
+      archiveSpec(currentSpec, currentMajorMinor, config);
+      updateVersionsConfig(remoteMajorMinor, config);
     } else if (currentMajorMinor === remoteMajorMinor) {
       console.log(`[${config.name}] Patch update for version ${remoteMajorMinor}`);
     } else {
