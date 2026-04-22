@@ -19,7 +19,9 @@
     "clean-api-docs:version": "docusaurus clean-api-docs:version",
     "gen-all": "docusaurus gen-api-docs all && docusaurus gen-api-docs:version serviceApi:all && docusaurus gen-api-docs:version serviceUat:all",
     "clean-all": "docusaurus clean-api-docs all && docusaurus clean-api-docs:version serviceApi:all && docusaurus clean-api-docs:version serviceUat:all",
-    "re-gen": "npm run clean-all && npm run gen-all"
+    "re-gen": "npm run clean-all && npm run gen-all",
+    "fetch-api-docs": "node scripts/fetch-api-docs/index.mjs",
+    "validate-api-docs": "npx redocly lint --config redocly.lint.yaml apis/service-api.json apis/service-uat.json"
   },
   "repository": {
     "type": "git",
@@ -35,14 +37,17 @@
     "@docusaurus/core": "^3.6.0",
     "@docusaurus/preset-classic": "^3.6.0",
     "@mdx-js/react": "3.0.0",
+    "@redocly/cli": "^2.29.0",
     "clsx": "^2.0.0",
     "docusaurus-plugin-openapi-docs": "^4.2.0",
     "docusaurus-theme-openapi-docs": "^4.2.0",
     "dotenv": "^16.3.1",
+    "parse5": "^8.0.1",
     "prism-react-renderer": "^2.3.1",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "yaml": "^2.8.3",
     "yet-another-react-lightbox": "^3.15.6"
   },
   "devDependencies": {
