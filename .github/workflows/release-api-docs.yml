@@ -1,0 +1,84 @@
+# Copyright 2026 EPAM Systems
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+name: Release API Docs
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: release-api-docs
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout develop
+        uses: actions/checkout@v4
+        with:
+          ref: develop
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Fetch API specs
+        run: npm run fetch-api-docs
+
+      - name: Validate API specs
+        run: npm run validate-api-docs
+
+      - name: Regenerate MDX from specs
+        run: npm run re-gen
+
+      - name: Build Docusaurus
+        run: npm run build
+
+      - name: Check for changes
+        id: changes
+        run: |
+          if [ -n "$(git status --porcelain apis/ api-docs/)" ]; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "changed=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit changes to develop
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          git config --global user.email "support@reportportal.io"
+          git config --global user.name "reportportal.io"
+          git add apis/ api-docs/
+          git commit -m "Release API docs"
+          git push origin develop
+
+      - name: Create PR develop → main
+        if: steps.changes.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr create \
+            --base main \
+            --head develop \
+            --title "Release API docs" \
+            --body "Automated release of API specs and generated MDX docs. Triggered by \`workflow_dispatch\`." \
+            || echo "PR already exists, skipping."
