@@ -3,8 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import YAML from 'yaml';
 import { fileURLToPath } from 'url';
-import { loadYaml, buildSpec } from './utils.mjs';
-import { parseMajorMinor } from '../../shared/utils.mjs';
+import { loadYaml, buildSpec, parseMajorMinor } from './utils.mjs';
 import { SERVICES } from './constants.mjs';
 
 const ROOT = process.cwd();
