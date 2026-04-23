@@ -22,16 +22,13 @@ concurrency:
 
 permissions:
   contents: write
-  pull-requests: write
 
 jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout develop
+      - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          ref: develop
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -56,45 +53,17 @@ jobs:
       - name: Check for changes
         id: changes
         run: |
-          if [ -n "$(git status --porcelain apis/ api-docs/)" ]; then
+          if [ -n "$(git status --porcelain)" ]; then
             echo "changed=true" >> $GITHUB_OUTPUT
           else
             echo "changed=false" >> $GITHUB_OUTPUT
           fi
 
-      - name: Commit changes to develop
+      - name: Commit and push changes
         if: steps.changes.outputs.changed == 'true'
         run: |
           git config --global user.email "support@reportportal.io"
           git config --global user.name "reportportal.io"
-          git add apis/ api-docs/
+          git add -A
           git commit -m "Release API docs"
-          git push origin develop
-
-      - name: Create PR develop → main
-        if: steps.changes.outputs.changed == 'true'
-        env:
-          # Use a PAT or GitHub App token instead of the default GITHUB_TOKEN if
-          # creating this PR must trigger downstream workflows.
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          existing_pr=$(gh pr list \
-            --head develop \
-            --base main \
-            --state open \
-            --limit 1 \
-            --json number \
-            --jq '.[0].number // empty')
-
-          if [ -n "$existing_pr" ]; then
-            echo "PR already exists: #$existing_pr"
-            exit 0
-          fi
-
-          echo "No PR found. Creating one..."
-
-          gh pr create \
-            --base main \
-            --head develop \
-            --title "Release API docs" \
-            --body "Automated release of API specs and generated MDX docs. Triggered by \`workflow_dispatch\`."
+          git push origin HEAD:${GITHUB_REF#refs/heads/}
