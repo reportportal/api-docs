@@ -112,6 +112,48 @@ export function buildSpec(remoteSpec, commonTemplate, serviceTemplate) {
  * @returns {string} Version string like "36" or "36.1".
  */
 export function parseMajorMinor(version) {
-  const [major, minor] = version.split('.');
+  if (typeof version !== 'string' && typeof version !== 'number') {
+    throw new Error(`Invalid version value: ${version}`);
+  }
+
+  const normalizedVersion = String(version).trim();
+
+  if (normalizedVersion.length === 0) {
+    throw new Error(`Invalid version value: ${version}`);
+  }
+
+  const [major, minor] = normalizedVersion.split('.');
+
+  if (!Number.isInteger(Number(major))) {
+    throw new Error(`Invalid MAJOR version: ${normalizedVersion}`);
+  }
+
+  if (minor !== undefined && !Number.isInteger(Number(minor))) {
+    throw new Error(`Invalid MINOR version: ${normalizedVersion}`);
+  }
+
   return minor === undefined ? major : `${major}.${minor}`;
+}
+
+/**
+ * Compares MAJOR.MINOR semantic versions.
+ * @param {string} left - Version in MAJOR or MAJOR.MINOR format.
+ * @param {string} right - Version in MAJOR or MAJOR.MINOR format.
+ * @returns {number} Negative if left < right, positive if left > right, otherwise 0.
+ */
+export function compareMajorMinor(left, right) {
+  const toParts = (value) => {
+    const normalized = parseMajorMinor(value);
+    const [majorRaw, minorRaw = '0'] = normalized.split('.');
+    return [Number(majorRaw), Number(minorRaw)];
+  };
+
+  const [leftMajor, leftMinor] = toParts(left);
+  const [rightMajor, rightMinor] = toParts(right);
+
+  if (leftMajor !== rightMajor) {
+    return leftMajor - rightMajor;
+  }
+
+  return leftMinor - rightMinor;
 }

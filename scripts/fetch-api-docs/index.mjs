@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import YAML from 'yaml';
 import { fileURLToPath } from 'url';
-import { loadYaml, buildSpec, parseMajorMinor } from './utils.mjs';
+import { loadYaml, buildSpec, parseMajorMinor, compareMajorMinor } from './utils.mjs';
 import { SERVICES } from './constants.mjs';
 
 const ROOT = process.cwd();
@@ -115,6 +115,12 @@ async function processService(config) {
 
     console.log(`[${config.name}] Current version: ${currentMajorMinor || 'none'}`);
     console.log(`[${config.name}] Remote version: ${remoteMajorMinor}`);
+
+    if (currentMajorMinor && compareMajorMinor(remoteMajorMinor, currentMajorMinor) < 0) {
+      throw new Error(
+        `[${config.name}] Refusing to downgrade from ${currentMajorMinor} to ${remoteMajorMinor}`,
+      );
+    }
 
     // Load the templates.
     const commonTemplate = loadYaml(path.resolve(CURRENT_DIR, 'templates/common.yaml'));

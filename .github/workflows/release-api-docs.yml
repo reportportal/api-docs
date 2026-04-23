@@ -45,7 +45,7 @@ jobs:
         run: npm run fetch-api-docs
 
       - name: Validate API specs
-        run: npm run validate-api-docs
+        run: npm run validate-api-docs:silent
 
       - name: Regenerate MDX from specs
         run: npm run re-gen
@@ -74,11 +74,27 @@ jobs:
       - name: Create PR develop → main
         if: steps.changes.outputs.changed == 'true'
         env:
+          # Use a PAT or GitHub App token instead of the default GITHUB_TOKEN if
+          # creating this PR must trigger downstream workflows.
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          existing_pr=$(gh pr list \
+            --head develop \
+            --base main \
+            --state open \
+            --limit 1 \
+            --json number \
+            --jq '.[0].number // empty')
+
+          if [ -n "$existing_pr" ]; then
+            echo "PR already exists: #$existing_pr"
+            exit 0
+          fi
+
+          echo "No PR found. Creating one..."
+
           gh pr create \
             --base main \
             --head develop \
             --title "Release API docs" \
-            --body "Automated release of API specs and generated MDX docs. Triggered by \`workflow_dispatch\`." \
-            || echo "PR already exists, skipping."
+            --body "Automated release of API specs and generated MDX docs. Triggered by \`workflow_dispatch\`."
