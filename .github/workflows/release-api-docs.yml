@@ -62,8 +62,8 @@ jobs:
       - name: Commit and push changes
         if: steps.changes.outputs.changed == 'true'
         run: |
-          git config --global user.email "support@reportportal.io"
-          git config --global user.name "reportportal.io"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
           git add -A
           git commit -m "Release API docs"
           git push origin HEAD:${GITHUB_REF#refs/heads/}
