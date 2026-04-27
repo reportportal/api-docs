@@ -67,3 +67,37 @@ jobs:
           git add -A
           git commit -m "Release API docs"
           git push origin HEAD:${GITHUB_REF#refs/heads/}
+
+  merge-to-develop:
+    needs: release
+    if: success() && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+          token: ${{ secrets.GH_TOKEN }}
+
+      - name: Merge main into develop and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if ! git fetch origin develop:develop 2>/dev/null; then
+            echo "::warning::develop branch not found, skipping merge."
+            exit 0
+          fi
+          if git diff --quiet develop..main; then
+            echo "No differences between main and develop, skipping merge."
+            exit 0
+          fi
+          git checkout develop
+          if ! git merge --no-ff main -m "Sync || merge main into develop"; then
+            echo "::error::Merge conflict detected when merging main into develop."
+            git merge --abort
+            exit 1
+          fi
+          git push origin develop
