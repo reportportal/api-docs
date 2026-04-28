@@ -1,160 +1,66 @@
-import type { SidebarsConfig } from "@docusaurus/plugin-content-docs";
+import type { SidebarsConfig } from '@docusaurus/plugin-content-docs';
 import { versionSelector, versionCrumb } from 'docusaurus-plugin-openapi-docs/lib/sidebars/utils';
 import serviceApiVersions from '../service-api/versions.json';
+import serviceApiVersionsConfig from '../../src/config/versions/service-api.json';
+
+function buildSidebarEntry(
+  sidebarKey: string,
+  version: string,
+  label: string,
+  slug: string,
+  requirePath: string
+) {
+  return {
+    [sidebarKey]: [
+      {
+        type: 'html',
+        defaultStyle: false,
+        value: versionSelector(serviceApiVersions),
+        className: 'version-button',
+      },
+      {
+        type: 'html',
+        defaultStyle: false,
+        value: versionCrumb(`v${version}`),
+        className: 'version-crumb',
+      },
+      {
+        type: 'category',
+        label,
+        link: {
+          type: 'generated-index',
+          title: label,
+          description: 'This is a generated index of the ReportPortal Service API.',
+          slug,
+        },
+        items: require(requirePath),
+      },
+    ],
+  };
+}
 
 const apiSidebars: SidebarsConfig = {
   // This is the sidebar for current version of the API Service
-  serviceApi: [
-    {
-      type: 'html',
-      defaultStyle: false,
-      value: versionSelector(serviceApiVersions),
-      className: 'version-button',
-    },
-    {
-      type: 'html',
-      defaultStyle: false,
-      value: versionCrumb(`v5.15`),
-      className: 'version-crumb',
-    },
-    {
-      type: 'category',
-      label: 'Service API',
-      link: {
-        type: 'generated-index',
-        title: 'Service API',
-        description: 'This is a generated index of the ReportPortal Service API',
-        slug: '/category/service-api',
-      },
-      items: require('../service-api/sidebar.ts'),
-    },
-  ],
+  ...buildSidebarEntry(
+    'serviceApi',
+    serviceApiVersionsConfig[0].version,
+    'Service API',
+    '/category/service-api',
+    '../service-api/sidebar.ts'
+  ),
   // This is the sidebar for versioned Service API
-  'service-api-5.14': [
-    {
-      type: 'html',
-      defaultStyle: false,
-      value: versionSelector(serviceApiVersions),
-      className: 'version-button',
-    },
-    {
-      type: 'html',
-      defaultStyle: false,
-      value: versionCrumb(`v5.14`),
-      className: 'version-crumb',
-    },
-    {
-      type: 'category',
-      label: 'Service API',
-      link: {
-        type: 'generated-index',
-        title: 'Service API',
-        description: 'This is a generated index of the ReportPortal Service API.',
-        slug: '/category/service-api-5.14'
-      },
-      items: require('../service-api/versions/5.14/sidebar.ts')
-    }
-  ],
-  'service-api-5.13': [
-    {
-      type: 'html',
-      defaultStyle: false,
-      value: versionSelector(serviceApiVersions),
-      className: 'version-button',
-    },
-    {
-      type: 'html',
-      defaultStyle: false,
-      value: versionCrumb(`v5.13`),
-      className: 'version-crumb',
-    },
-    {
-      type: 'category',
-      label: 'Service API',
-      link: {
-        type: 'generated-index',
-        title: 'Service API',
-        description: 'This is a generated index of the ReportPortal Service API.',
-        slug: '/category/service-api-5.13'
-      },
-      items: require('../service-api/versions/5.13/sidebar.ts')
-    }
-  ],
-  'service-api-5.12': [
-    {
-      type: 'html',
-      defaultStyle: false,
-      value: versionSelector(serviceApiVersions),
-      className: 'version-button',
-    },
-    {
-      type: 'html',
-      defaultStyle: false,
-      value: versionCrumb(`v5.12`),
-      className: 'version-crumb',
-    },
-    {
-      type: 'category',
-      label: 'Service API',
-      link: {
-        type: 'generated-index',
-        title: 'Service API',
-        description: 'This is a generated index of the ReportPortal Service API.',
-        slug: '/category/service-api-5.12'
-      },
-      items: require('../service-api/versions/5.12/sidebar.ts')
-    }
-  ],
-  'service-api-5.11': [
-    {
-      type: 'html',
-      defaultStyle: false,
-      value: versionSelector(serviceApiVersions),
-      className: 'version-button',
-    },
-    {
-      type: 'html',
-      defaultStyle: false,
-      value: versionCrumb(`v5.11`),
-      className: 'version-crumb',
-    },
-    {
-      type: 'category',
-      label: 'Service API',
-      link: {
-        type: 'generated-index',
-        title: 'Service API',
-        description: 'This is a generated index of the ReportPortal Service API.',
-        slug: '/category/service-api-5.11'
-      },
-      items: require('../service-api/versions/5.11/sidebar.ts')
-    }
-  ],
-  'service-api-5.10': [
-    {
-      type: 'html',
-      defaultStyle: false,
-      value: versionSelector(serviceApiVersions),
-      className: 'version-button',
-    },
-    {
-      type: 'html',
-      defaultStyle: false,
-      value: versionCrumb(`v5.10`),
-      className: 'version-crumb',
-    },
-    {
-      type: 'category',
-      label: 'Service API',
-      link: {
-        type: 'generated-index',
-        title: 'Service API',
-        description: 'This is a generated index of the ReportPortal Service API.',
-        slug: '/category/service-api-5.10'
-      },
-      items: require('../service-api/versions/5.10/sidebar.ts')
-    }
-  ],
+  ...serviceApiVersionsConfig
+    .slice(1)
+    .map((entry: any) =>
+      buildSidebarEntry(
+        `service-api-${entry.version}`,
+        entry.version,
+        'Service API',
+        `/category/service-api-${entry.version}`,
+        `../service-api/versions/${entry.version}/sidebar.ts`
+      )
+    )
+    .reduce((acc: any, obj: any) => ({ ...acc, ...obj }), {}),
 };
 
 export default apiSidebars;
