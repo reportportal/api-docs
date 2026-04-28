@@ -1,3 +1,33 @@
+import serviceApiVersionsConfig from './versions/service-api.json';
+import serviceUatVersionsConfig from './versions/service-uat.json';
+
+function buildServiceConfig(baseUrl, key, versionsConfig) {
+  const [current, ...archived] = versionsConfig;
+  const versions = {};
+
+  archived.forEach((entry) => {
+    versions[entry.version] = {
+      specPath: `apis/${entry.version}/service-${key}.yaml`,
+      outputDir: `api-docs/service-${key}/versions/${entry.version}`,
+      label: `v${entry.version}`,
+      baseUrl: `${baseUrl}category/service-${key}-${entry.version}`,
+    };
+  });
+
+  return {
+    specPath: `apis/service-${key}.json`, // path or URL to the OpenAPI spec
+    outputDir: `api-docs/service-${key}`, // output directory for generated *.mdx and sidebar.js files
+    sidebarOptions: {
+      groupPathsBy: 'tag', // generate a sidebar.js slice that groups operations by tag
+      categoryLinkSource: 'tag',
+    },
+    version: current.version,
+    label: `v${current.version}`,
+    baseUrl: `${baseUrl}category/service-${key}`,
+    versions,
+  };
+}
+
 const openapiConfig = (baseUrl = '/') => ({
   config: {
     designApi: {
@@ -9,93 +39,9 @@ const openapiConfig = (baseUrl = '/') => ({
         categoryLinkSource: 'tag',
       },
     },
-    serviceApi: {
-      // "service Api" is considered the <id> that you will reference in the CLI
-      specPath: 'apis/service-api.json', // path or URL to the OpenAPI spec
-      outputDir: 'api-docs/service-api', // output directory for generated *.mdx and sidebar.js files
-      sidebarOptions: {
-        groupPathsBy: 'tag', // generate a sidebar.js slice that groups operations by tag
-        categoryLinkSource: 'tag',
-      },
-      version: '5.15',
-      label: 'v5.15',
-      baseUrl: `${baseUrl}category/service-api`,
-      versions: {
-        5.14: {
-          specPath: 'apis/5.14/service-api.yaml',
-          outputDir: 'api-docs/service-api/versions/5.14',
-          label: 'v5.14',
-          baseUrl: `${baseUrl}category/service-api-5.14`,
-        },
-        5.13: {
-          specPath: 'apis/5.13/service-api.yaml',
-          outputDir: 'api-docs/service-api/versions/5.13',
-          label: 'v5.13',
-          baseUrl: `${baseUrl}category/service-api-5.13`,
-        },
-        5.12: {
-          specPath: 'apis/5.12/service-api.yaml',
-          outputDir: 'api-docs/service-api/versions/5.12',
-          label: 'v5.12',
-          baseUrl: `${baseUrl}category/service-api-5.12`,
-        },
-        5.11: {
-          specPath: 'apis/5.11/service-api.yaml',
-          outputDir: 'api-docs/service-api/versions/5.11',
-          label: 'v5.11',
-          baseUrl: `${baseUrl}category/service-api-5.11`,
-        },
-        '5.10': {
-          specPath: 'apis/5.10/service-api.yaml',
-          outputDir: 'api-docs/service-api/versions/5.10',
-          label: 'v5.10',
-          baseUrl: `${baseUrl}category/service-api-5.10`,
-        },
-      },
-    },
-    serviceUat: {
-      specPath: 'apis/service-uat.json',
-      outputDir: 'api-docs/service-uat',
-      sidebarOptions: {
-        groupPathsBy: 'tag',
-        categoryLinkSource: 'tag',
-      },
-      version: '5.15',
-      label: 'v5.15',
-      baseUrl: `${baseUrl}category/service-uat`,
-      versions: {
-        5.14: {
-          specPath: 'apis/5.14/service-uat.yaml',
-          outputDir: 'api-docs/service-uat/versions/5.14',
-          label: 'v5.14',
-          baseUrl: `${baseUrl}category/service-uat-5.14`,
-        },
-        5.13: {
-          specPath: 'apis/5.13/service-uat.yaml',
-          outputDir: 'api-docs/service-uat/versions/5.13',
-          label: 'v5.13',
-          baseUrl: `${baseUrl}category/service-uat-5.13`,
-        },
-        5.12: {
-          specPath: 'apis/5.12/service-uat.yaml',
-          outputDir: 'api-docs/service-uat/versions/5.12',
-          label: 'v5.12',
-          baseUrl: `${baseUrl}category/service-uat-5.12`,
-        },
-        5.11: {
-          specPath: 'apis/5.11/service-uat.yaml',
-          outputDir: 'api-docs/service-uat/versions/5.11',
-          label: 'v5.11',
-          baseUrl: `${baseUrl}category/service-uat-5.11`,
-        },
-        '5.10': {
-          specPath: 'apis/5.10/service-uat.yaml',
-          outputDir: 'api-docs/service-uat/versions/5.10',
-          label: 'v5.10',
-          baseUrl: `${baseUrl}category/service-uat-5.10`,
-        },
-      },
-    },
+    // "service Api" is considered the <id> that you will reference in the CLI
+    serviceApi: buildServiceConfig(baseUrl, 'api', serviceApiVersionsConfig),
+    serviceUat: buildServiceConfig(baseUrl, 'uat', serviceUatVersionsConfig),
   },
 });
 

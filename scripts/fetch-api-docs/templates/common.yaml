@@ -1,0 +1,27 @@
+info:
+  description: |
+    ReportPortal is a continuous testing service that helps teams analyze and manage test results across different environments.
+
+    It provides both a web application and an API for integrating test automation workflows and processing test data.
+
+    The platform is designed according to established [API Principles](https://github.com/reportportal/reportportal-common-api/blob/main/docs/api-principles.md)
+    and [RESTful API Guidelines](https://opensource.zalando.com/restful-api-guidelines/), which define consistent standards for how the API is structured and used.
+
+    For authentication, ReportPortal uses [JWT](https://jwt.io/) tokens for UI-based access
+    and [API Keys](https://reportportal.io/docs/reportportal-configuration/HowToGetAnAccessTokenInReportPortal/#2-authorization-with-users-api-key-for-agents) for agent-based access.
+    Both methods rely on the same Bearer authentication scheme.
+  contact:
+    name: ReportPortal Team
+    email: support@reportportal.io
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+
+security:
+  - BearerAuth: []

@@ -1,0 +1,13 @@
+info:
+  title: ReportPortal Service UAT
+
+servers:
+  - url: '{host}{basePath}'
+    description: ReportPortal server
+    variables:
+      host:
+        default: https://demo.reportportal.io
+        description: Host name and port (if needed) of Report Portal server
+      basePath:
+        default: /uat
+        description: Base path of Report Portal UAT
