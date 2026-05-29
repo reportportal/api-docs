@@ -39,7 +39,7 @@ const openapiConfig = (baseUrl = '/') => ({
         categoryLinkSource: 'tag',
       },
     },
-    // "service Api" is considered the <id> that you will reference in the CLI
+    // "serviceApi" is considered the <id> that you will reference in the CLI
     serviceApi: buildServiceConfig(baseUrl, 'api', serviceApiVersionsConfig),
     serviceUat: buildServiceConfig(baseUrl, 'uat', serviceUatVersionsConfig),
   },
