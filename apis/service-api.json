@@ -11,7 +11,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "version": "5.15.2"
+    "version": "5.15.3"
   },
   "servers": [
     {
@@ -2083,6 +2083,14 @@
             "name": "filter.eq.issueType",
             "in": "query",
             "description": "Filters by 'issueType'",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "filter.eq.launchOwner",
+            "in": "query",
+            "description": "Filters by 'launchOwner'",
             "schema": {
               "type": "string"
             }
@@ -17262,6 +17270,14 @@
             }
           },
           {
+            "name": "filter.eq.launchOwner",
+            "in": "query",
+            "description": "Filters by 'launchOwner'",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "name": "filter.eq.statistics$executions$skipped",
             "in": "query",
             "description": "Filters by 'statistics$executions$skipped'",
@@ -18451,6 +18467,14 @@
             }
           },
           {
+            "name": "filter.eq.launchOwner",
+            "in": "query",
+            "description": "Filters by 'launchOwner'",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "name": "filter.eq.statistics$executions$skipped",
             "in": "query",
             "description": "Filters by 'statistics$executions$skipped'",
@@ -19206,6 +19230,14 @@
             "name": "filter.eq.issueType",
             "in": "query",
             "description": "Filters by 'issueType'",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "filter.eq.launchOwner",
+            "in": "query",
+            "description": "Filters by 'launchOwner'",
             "schema": {
               "type": "string"
             }
