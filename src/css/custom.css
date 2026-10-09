@@ -142,10 +142,6 @@ h1 {
 }
 
 @media (min-width: 997px) {
-  .version-selector-divider {
-    display: inline-flex;
-  }
-
   .navbar__items .navbar__link:has([class*='iconExternalLink']) {
     display: inline-flex;
     align-items: center;
