@@ -11,7 +11,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "version": "5.15.4"
+    "version": "5.15.5"
   },
   "servers": [
     {
@@ -58,6 +58,10 @@
     {
       "name": "File Storage",
       "description": "Files Storage API collection"
+    },
+    {
+      "name": "Grafana",
+      "description": "Grafana proxy gate"
     },
     {
       "name": "Integration",
@@ -20851,6 +20855,68 @@
         }
       }
     },
+    "/v1/public/integration/grafana/session-check": {
+      "get": {
+        "tags": [
+          "Grafana"
+        ],
+        "summary": "Validate the rp_grafana_session cookie",
+        "description": "Internal endpoint for nginx auth_request; not part of the public API surface",
+        "operationId": "sessionCheck",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorRS"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ErrorRS"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorRS"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorRS"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/project/{projectName}/widget/{widgetCode}": {
       "get": {
         "tags": [
@@ -25418,6 +25484,74 @@
         }
       }
     },
+    "/v1/integration/grafana/session": {
+      "delete": {
+        "tags": [
+          "Grafana"
+        ],
+        "summary": "Revoke Grafana proxy sessions for the current user",
+        "operationId": "revokeSession",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OperationCompletionRS"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorRS"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ErrorRS"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorRS"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorRS"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/integration/all/{type}": {
       "delete": {
         "tags": [
@@ -28130,6 +28264,9 @@
           "startTime": {
             "type": "string",
             "format": "date-time"
+          },
+          "launchUuid": {
+            "type": "string"
           },
           "name": {
             "type": "string",
